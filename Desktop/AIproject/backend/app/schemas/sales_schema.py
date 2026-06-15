@@ -1,5 +1,6 @@
 from pydantic import BaseModel
-class salescreate(BaseModel):
-    product_id=int
-    quantity_sold=int 
+
+class SaleCreate(BaseModel):
+    product_id: int
+    quantity_sold: int
     

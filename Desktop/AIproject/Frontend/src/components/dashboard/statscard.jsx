@@ -1,11 +1,14 @@
-function statscard(
-    {title,value}
-){
-    return(
-        <div className="bg-white p-5 rounded shadow">
-            <h3 className="text-gray-500">{title}</h3>
-            <h1 className="text-3xl font-bold mt-2">{value}</h1>
-        </div>
-    );
+function StatsCard({ title, value }) {
+  return (
+    <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+      <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        {title}
+      </h3>
+      <p className="mt-3 break-words text-2xl font-bold text-slate-950 sm:text-3xl">
+        {value ?? 0}
+      </p>
+    </div>
+  );
 }
-export default statscard;
+
+export default StatsCard;

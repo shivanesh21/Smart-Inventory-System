@@ -1,55 +1,31 @@
-import { useEffect, useState } from "react";
-import API from "./services/api";
-import ProductForm from "./components/products/ProductForm";
-import ProductTable from "./components/products/ProductTable";
-import dashboard from "./pages/Dashboard";
+import { Routes,Route } from "react-router-dom";
+import Dashboard from "./pages/Dashboard"
+import Products from "./pages/products";
+import Sales from "./pages/sales";
+import Assistant from "./pages/assistant";
+import Login from "./pages/login";
+import AddProductPage from "./pages/AddProductPage";
+import UpdateProductPage from "./pages/UpdateProductPage";
+import DeleteProductPage from "./pages/DeleteProductPage";
+import ProductsPage from "./pages/ProductsPage";
+import Mainlayout from "./layout/mainlayout";
+function App(){
+  const token=localStorage.getItem("token");
+  if(!token){return<Login/>;}
+  return(
+      <Mainlayout>
+        <Routes>
+          <Route path="/" element={<Dashboard/>}/>
+          <Route path="/products" element={<Products/>}/>
+          <Route path="/products-list" element={<ProductsPage/>}/>
+          <Route path="/add-product" element={<AddProductPage/>}/>
+          <Route path="/update-product" element={<UpdateProductPage/>}/>
+          <Route path="/delete-product" element={<DeleteProductPage/>}/>
+          <Route path="/sales" element={<Sales/>}/>
+          <Route path="/assistant" element={<Assistant/>}/>
 
-function App() {
-
-  const [products, setProducts] = useState([]);
-  const [search,setsearch]=useState("");
-  const fetchProducts = async () => {
-
-    try {
-
-      const response = await API.get("/products");
-
-      setProducts(response.data);
-
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
- 
-  const filteredproducts=products.filter((product) => product.name.toLowerCase().includes(search.toLowerCase()));
-  
-  return (
-
-    <div className="p-10 bg-gray-100 min-h-screen">
-        <dashboard/>
-        <div className="p-10">
-      <h1 className="text-4xl font-bold mb-8 text-blue-600">
-        Smart Inventory Management
-      </h1>
-      <input 
-        type="text"
-        placeholder="Search Product"
-        value={search}
-        onChange={(e) => setsearch(e.target.value)}
-        className="border p-2 mb-5 w-full rounded"/>
-
-      <ProductForm fetchProducts={fetchProducts} setProducts={setProducts} />
-
-      <ProductTable products={products}
-      fetchProducts={fetchProducts} />
-      <ProductTable products={filteredproducts}/>
-    </div>
-  </div>
+        </Routes>
+      </Mainlayout>
   );
 }
 export default App;
